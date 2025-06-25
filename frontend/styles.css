@@ -1,0 +1,234 @@
+/* Nude brown, nude, white, and black color palette */
+:root {
+  --nude-brown: #a9746e;
+  --nude: #f5e9e2;
+  --white: #fff;
+  --black: #222;
+  --accent: #c9b6a7;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: var(--nude);
+  color: var(--black);
+}
+
+header {
+  background: var(--nude-brown);
+  color: var(--white);
+  padding: 0.5rem 0;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.header-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+.header-nav a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.header-nav a:hover {
+  color: var(--accent);
+}
+
+.sidebar-toggle {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 2rem;
+  cursor: pointer;
+  display: none;
+}
+
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 220px;
+  height: 100vh;
+  background: var(--nude-brown);
+  color: var(--white);
+  padding-top: 4rem;
+  transform: translateX(-100%);
+  transition: transform 0.3s;
+  z-index: 1000;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.sidebar a {
+  color: var(--white);
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: color 0.2s;
+}
+
+.sidebar a:hover {
+  color: var(--accent);
+}
+
+main {
+  max-width: 900px;
+  margin: 2rem auto 3rem auto;
+  padding: 1rem;
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(169, 116, 110, 0.08);
+}
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.profile-pic {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid var(--accent);
+  background: var(--nude);
+}
+
+.description {
+  font-size: 1.2rem;
+  color: var(--nude-brown);
+  text-align: center;
+}
+
+.projects, .about, .cv-degrees, .certificates {
+  margin-top: 2rem;
+}
+
+.projects-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.project-card {
+  background: var(--nude);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 1rem;
+  width: 260px;
+  box-shadow: 0 1px 6px rgba(169, 116, 110, 0.07);
+}
+
+.project-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: var(--nude-brown);
+}
+
+.project-card p {
+  font-size: 0.98rem;
+  color: var(--black);
+}
+
+.project-card a {
+  color: var(--nude-brown);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.cv-degrees button {
+  background: var(--nude-brown);
+  color: var(--white);
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.5rem;
+  margin: 0.5rem 1rem 0.5rem 0;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.cv-degrees button:hover {
+  background: var(--accent);
+  color: var(--black);
+}
+
+.certificates ul {
+  list-style: none;
+  padding: 0;
+}
+
+.certificates li {
+  margin: 1rem 0;
+}
+
+.certificates a {
+  color: var(--nude-brown);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  background: var(--nude-brown);
+  color: var(--white);
+  padding: 1rem 0;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  z-index: 100;
+}
+
+.footer-icon img {
+  width: 32px;
+  height: 32px;
+  filter: brightness(0) invert(1);
+  transition: filter 0.2s;
+}
+
+.footer-icon:hover img {
+  filter: brightness(0.8) sepia(1) hue-rotate(330deg) saturate(2);
+}
+
+@media (max-width: 700px) {
+  main {
+    margin: 1rem 0.5rem 4rem 0.5rem;
+    padding: 0.5rem;
+  }
+  .header-nav ul {
+    display: none;
+  }
+  .sidebar-toggle {
+    display: block;
+  }
+}
