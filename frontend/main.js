@@ -15,7 +15,9 @@ document.addEventListener('click', (e) => {
 
 // Load GitHub projects on projects.html
 if (window.location.pathname.endsWith('projects.html')) {
-  fetch('/api/github-projects')
+  // Use GitHub API directly for GitHub Pages
+  const githubUsername = 'Oratile-Seloro'; // <-- Set your GitHub username here
+  fetch(`https://api.github.com/users/${githubUsername}/repos`)
     .then(res => res.json())
     .then(projects => {
       const list = document.getElementById('projects-list');
