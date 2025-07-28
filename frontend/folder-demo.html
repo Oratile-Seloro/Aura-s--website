@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Folder Demo - Aura's Personal Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="folder.css" />
+</head>
+<body>
+  <header>
+    <nav class="header-nav">
+      <button class="sidebar-toggle" id="sidebarToggle">☰</button>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="projects.html">Projects</a></li>
+        <li><a href="cv.html">CV & Degrees</a></li>
+        <li><a href="certificates.html">Certificates</a></li>
+        <li><a href="folder-demo.html">Folder Demo</a></li>
+      </ul>
+    </nav>
+  </header>
+  <aside id="sidebar" class="sidebar">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="projects.html">Projects</a></li>
+      <li><a href="cv.html">CV & Degrees</a></li>
+      <li><a href="certificates.html">Certificates</a></li>
+      <li><a href="folder-demo.html">Folder Demo</a></li>
+    </ul>
+  </aside>
+  <main>
+    <section class="folder-demo">
+      <h1>Interactive Folder Component Demo</h1>
+      <p>Click on the folders to open them and hover over the papers for interactive effects!</p>
+      
+      <div class="folder-grid">
+        <div class="folder-item">
+          <div id="folder1" class="folder-container"></div>
+          <div class="folder-label">Projects</div>
+        </div>
+        
+        <div class="folder-item">
+          <div id="folder2" class="folder-container"></div>
+          <div class="folder-label">Documents</div>
+        </div>
+        
+        <div class="folder-item">
+          <div id="folder3" class="folder-container"></div>
+          <div class="folder-label">Certificates</div>
+        </div>
+        
+        <div class="folder-item">
+          <div id="folder4" class="folder-container"></div>
+          <div class="folder-label">Photos</div>
+        </div>
+      </div>
+
+      <div class="controls" style="text-align: center; margin-top: 2rem;">
+        <h3>Interactive Controls</h3>
+        <button onclick="toggleAllFolders()" style="margin: 0.5rem; padding: 0.7rem 1.5rem; background: var(--nude-brown); color: white; border: none; border-radius: 6px; cursor: pointer;">Toggle All Folders</button>
+        <button onclick="changeAllColors()" style="margin: 0.5rem; padding: 0.7rem 1.5rem; background: var(--accent); color: var(--black); border: none; border-radius: 6px; cursor: pointer;">Change Colors</button>
+        <button onclick="changeSize()" style="margin: 0.5rem; padding: 0.7rem 1.5rem; background: var(--nude-brown); color: white; border: none; border-radius: 6px; cursor: pointer;">Change Size</button>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <a href="oratile.seloro@gmail.com" class="footer-icon" title="Email">
+      <img src="email-icon.svg" alt="Email" />
+    </a>
+    <a href="https://www.linkedin.com/in/oratile-seloro-0b3a10246" class="footer-icon" title="LinkedIn" target="_blank">
+      <img src="linkedin-icon.svg" alt="LinkedIn" />
+    </a>
+  </footer>
+  <script src="main.js"></script>
+  <script src="folder.js"></script>
+  <script>
+    // Initialize folders when page loads
+    let folders = [];
+    const colors = ['#5227FF', '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FECA57'];
+    let colorIndex = 0;
+    let currentSize = 1.5;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      // Create folder instances
+      folders.push(createFolder(document.getElementById('folder1'), {
+        color: '#5227FF',
+        size: 1.5,
+        items: ['React', 'Vue.js', 'Angular'],
+        className: 'custom-folder'
+      }));
+
+      folders.push(createFolder(document.getElementById('folder2'), {
+        color: '#FF6B6B',
+        size: 1.5,
+        items: ['CV', 'Resume', 'Portfolio'],
+        className: 'custom-folder'
+      }));
+
+      folders.push(createFolder(document.getElementById('folder3'), {
+        color: '#4ECDC4',
+        size: 1.5,
+        items: ['AWS', 'Azure', 'Google'],
+        className: 'custom-folder'
+      }));
+
+      folders.push(createFolder(document.getElementById('folder4'), {
+        color: '#45B7D1',
+        size: 1.5,
+        items: ['Travel', 'Work', 'Personal'],
+        className: 'custom-folder'
+      }));
+    });
+
+    function toggleAllFolders() {
+      folders.forEach(folder => folder.toggle());
+    }
+
+    function changeAllColors() {
+      folders.forEach(folder => {
+        colorIndex = (colorIndex + 1) % colors.length;
+        folder.setColor(colors[colorIndex]);
+      });
+    }
+
+    function changeSize() {
+      currentSize = currentSize === 1.5 ? 2 : currentSize === 2 ? 1 : 1.5;
+      folders.forEach(folder => folder.setSize(currentSize));
+    }
+  </script>
+</body>
+</html>

@@ -4,7 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CV & Degrees - Aura's Personal Website</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="folder.css" />
 </head>
 <body>
   <header>
@@ -31,10 +35,63 @@
   <main>
     <section class="cv-degrees">
       <h1>CV & Degrees</h1>
-     <!-- <button onclick="window.open('degrees\cv.pdf', '_blank')">View CV</button> --> 
-      <button onclick="window.open('degrees\degree1.pdf', '_blank')">View BSc in IT degree</button>
-      <button onclick="window.open('degrees\degree2.pdf', '_blank')">View BScHons in CompSci and IT degree</button>
-      <!-- Add more buttons as needed -->
+      
+      <p style="text-align: center; margin-bottom: 2rem; color: var(--nude-brown); font-style: italic;">
+        Click on the folder below to explore my documents, then hover over the papers for an interactive experience!
+      </p>
+      
+      <!-- Interactive folder section -->
+      <div class="folder-section">
+        <div class="folder-item">
+          <div id="cv-folder" class="folder-container"></div>
+          <div class="folder-label">My Documents</div>
+        </div>
+      </div>
+      
+      <!-- Enhanced controls section -->
+      <div class="cv-controls" style="text-align: center; margin-top: 2rem;">
+        <h3 style="color: var(--nude-brown); margin-bottom: 1rem;">Quick Access</h3>
+        <div style="display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center;">
+          <button onclick="window.open('degrees/cv.pdf', '_blank')" class="cv-button">
+            📄 View CV
+          </button>
+          <button onclick="window.open('degrees/degree1.pdf', '_blank')" class="cv-button">
+            🎓 BSc in IT Degree
+          </button>
+          <button onclick="window.open('degrees/degree2.pdf', '_blank')" class="cv-button">
+            🏆 BScHons CompSci & IT
+          </button>
+        </div>
+        
+        <!-- Folder interaction controls -->
+        <div style="margin-top: 1.5rem;">
+          <button onclick="toggleFolder()" class="folder-control-btn">
+            📁 Toggle Folder
+          </button>
+          <button onclick="changeFolderColor()" class="folder-control-btn">
+            🎨 Change Color
+          </button>
+        </div>
+      </div>
+      
+      <!-- Additional info section -->
+      <div style="margin-top: 3rem; padding: 1.5rem; background: rgba(169, 116, 110, 0.1); border-radius: 8px; border-left: 4px solid var(--nude-brown);">
+        <h3 style="color: var(--nude-brown); margin-bottom: 1rem;">📚 Educational Background</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.8rem;">
+            <strong>Honours in Computer Science and IT</strong><br>
+            <span style="color: var(--accent);">North-West University</span>
+          </li>
+          <li style="margin-bottom: 0.8rem;">
+            <strong>BSc in Information Technology</strong><br>
+            <span style="color: var(--accent);">North-West University</span>
+          </li>
+          <li>
+            <strong>Current Role:</strong> Technical Operations Engineer Intern<br>
+            <span style="color: var(--accent);">Momentum Investments</span>
+          </li>
+        </ul>
+      </div>
     </section>
   </main>
   <footer>
@@ -46,5 +103,128 @@
     </a>
   </footer>
   <script src="main.js"></script>
+  <script src="folder.js"></script>
+  <script>
+    // Initialize CV folder when page loads
+    let cvFolder;
+    const colors = ['#a9746e', '#c9b6a7', '#5227FF', '#FF6B6B', '#4ECDC4', '#45B7D1'];
+    let currentColorIndex = 0;
+
+    document.addEventListener('DOMContentLoaded', function() {
+      cvFolder = createFolder(document.getElementById('cv-folder'), {
+        color: '#a9746e', // Using your website's nude-brown color
+        size: 2,
+        items: ['CV.pdf', 'BSc IT', 'BScHons'],
+        className: 'cv-folder'
+      });
+    });
+
+    // Interactive functions for the CV page
+    function toggleFolder() {
+      if (cvFolder) {
+        cvFolder.toggle();
+      }
+    }
+
+    function changeFolderColor() {
+      if (cvFolder) {
+        currentColorIndex = (currentColorIndex + 1) % colors.length;
+        cvFolder.setColor(colors[currentColorIndex]);
+      }
+    }
+
+    // Add some interactive messaging
+    document.addEventListener('DOMContentLoaded', function() {
+      // Add click event to show a message when folder is clicked
+      const folderElement = document.getElementById('cv-folder');
+      if (folderElement) {
+        folderElement.addEventListener('click', function() {
+          const message = document.getElementById('folder-message');
+          if (!message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.id = 'folder-message';
+            messageDiv.style.cssText = `
+              text-align: center; 
+              margin-top: 1rem; 
+              color: var(--nude-brown); 
+              font-style: italic; 
+              animation: fadeIn 0.5s ease-in;
+            `;
+            messageDiv.innerHTML = '✨ Great! Now hover over the papers to see the magnetic effect!';
+            folderElement.parentNode.appendChild(messageDiv);
+            
+            // Remove message after 3 seconds
+            setTimeout(() => {
+              if (messageDiv.parentNode) {
+                messageDiv.parentNode.removeChild(messageDiv);
+              }
+            }, 3000);
+          }
+        });
+      }
+    });
+  </script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .cv-button {
+      background: var(--nude-brown);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .cv-button:hover {
+      background: var(--accent);
+      color: var(--black);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(169, 116, 110, 0.3);
+    }
+
+    .folder-control-btn {
+      background: var(--accent);
+      color: var(--black);
+      border: none;
+      border-radius: 6px;
+      padding: 0.6rem 1.2rem;
+      margin: 0 0.5rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: 'Work Sans', sans-serif;
+      font-weight: 500;
+    }
+
+    .folder-control-btn:hover {
+      background: var(--nude-brown);
+      color: var(--white);
+      transform: translateY(-1px);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .cv-controls div[style*="display: flex"] {
+        flex-direction: column;
+        align-items: center;
+      }
+      
+      .cv-button {
+        width: 100%;
+        max-width: 250px;
+      }
+    }
+  </style>
 </body>
 </html>

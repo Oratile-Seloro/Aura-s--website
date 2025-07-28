@@ -12,12 +12,111 @@ body {
   font-family: 'Segoe UI', Arial, sans-serif;
   background: var(--nude);
   color: var(--black);
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* Aurora animated background */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    rgba(169, 116, 110, 0.15),
+    rgba(201, 182, 167, 0.25),
+    rgba(245, 233, 226, 0.3),
+    rgba(169, 116, 110, 0.12),
+    rgba(201, 182, 167, 0.18)
+  );
+  background-size: 400% 400%;
+  animation: aurora 8s ease-in-out infinite;
+  z-index: -2;
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at 20% 50%,
+    rgba(201, 182, 167, 0.2) 0%,
+    transparent 60%
+  ),
+  radial-gradient(
+    ellipse at 80% 20%,
+    rgba(169, 116, 110, 0.25) 0%,
+    transparent 60%
+  ),
+  radial-gradient(
+    ellipse at 40% 80%,
+    rgba(245, 233, 226, 0.15) 0%,
+    transparent 60%
+  ),
+  radial-gradient(
+    ellipse at 70% 70%,
+    rgba(201, 182, 167, 0.18) 0%,
+    transparent 50%
+  );
+  animation: aurora-flow 12s ease-in-out infinite;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes aurora {
+  0%, 100% {
+    background-position: 0% 50%;
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  25% {
+    background-position: 100% 50%;
+    opacity: 1;
+    transform: scale(1.02);
+  }
+  50% {
+    background-position: 100% 100%;
+    opacity: 0.95;
+    transform: scale(0.98);
+  }
+  75% {
+    background-position: 0% 100%;
+    opacity: 0.85;
+    transform: scale(1.01);
+  }
+}
+
+@keyframes aurora-flow {
+  0%, 100% {
+    transform: translateX(0) translateY(0) scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  33% {
+    transform: translateX(30px) translateY(-20px) scale(1.1) rotate(1deg);
+    opacity: 0.9;
+  }
+  66% {
+    transform: translateX(-20px) translateY(30px) scale(0.9) rotate(-1deg);
+    opacity: 0.8;
+  }
 }
 
 header {
-  background: var(--nude-brown);
+  background: rgba(169, 116, 110, 0.95);
+  backdrop-filter: blur(10px);
   color: var(--white);
   padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(201, 182, 167, 0.3);
+  position: relative;
+  z-index: 10;
 }
 
 .header-nav {
@@ -100,35 +199,102 @@ main {
   max-width: 900px;
   margin: 2rem auto 3rem auto;
   padding: 1rem;
-  background: var(--white);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(169, 116, 110, 0.08);
+  box-shadow: 0 8px 32px rgba(169, 116, 110, 0.15);
+  border: 1px solid rgba(201, 182, 167, 0.2);
+  position: relative;
+  z-index: 1;
 }
+
 
 .profile {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  gap: 1.5rem;
+  gap: 2.5rem;
+  justify-content: flex-start;
+  margin-bottom: 2rem;
+  font-size: medium;
 }
 
 .profile-pic {
-  width: 160px;
-  height: 160px;
+  width: 390px;
+  height: 480px;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 12px;
   border: 4px solid var(--accent);
   background: var(--nude);
+  margin-right: 2.5rem;
+  box-shadow: 0 2px 16px rgba(169, 116, 110, 0.13);
+  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.profile-pic:hover {
+  box-shadow: 0 8px 32px rgba(169, 116, 110, 0.3);
+}
+
+.animated-title {
+  transition: transform 0.1s ease-out, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  will-change: transform;
+}
+
+.animated-title:hover {
+  box-shadow: 0 4px 16px rgba(169, 116, 110, 0.25) !important;
+}
+
+.word-hover {
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+  cursor: pointer;
+  display: inline;
+}
+
+.word-hover:hover {
+  color: var(--nude-brown);
+  text-shadow: 0 1px 3px rgba(169, 116, 110, 0.3);
+  font-weight: 500;
+}
+
+.profile-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.profile-details h1 {
+  margin: 0 0 0.5rem 0;
+  font-size: 2.2rem;
+  color: var(--nude-brown);
 }
 
 .description {
-  font-size: 1.2rem;
+  font-size: 2rem;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   color: var(--nude-brown);
-  text-align: center;
+  text-align: left;
+  margin: 0 0 0 -60px;
 }
 
 .projects, .about, .cv-degrees, .certificates {
   margin-top: 2rem;
+}
+
+/* Standardized heading styles for all pages */
+.about h1,
+.projects h1,
+.cv-degrees h1,
+.certificates h1 {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  color: var(--nude-brown);
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .projects-list {
@@ -199,7 +365,8 @@ footer {
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  background: var(--nude-brown);
+  background: rgba(169, 116, 110, 0.95);
+  backdrop-filter: blur(10px);
   color: var(--white);
   padding: 1rem 0;
   position: fixed;
@@ -207,6 +374,7 @@ footer {
   bottom: 0;
   width: 100vw;
   z-index: 100;
+  border-top: 1px solid rgba(201, 182, 167, 0.3);
 }
 
 .footer-icon img {

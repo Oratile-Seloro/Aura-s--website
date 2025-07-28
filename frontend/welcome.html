@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome - Oratile's Website</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background: linear-gradient(120deg, var(--nude-brown) 0%, var(--nude) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+      overflow: hidden;
+    }
+    .welcome-container {
+      background: rgba(255,255,255,0.95);
+      border-radius: 18px;
+      box-shadow: 0 8px 32px rgba(169,116,110,0.18);
+      padding: 3rem 2.5rem 2.5rem 2.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 1.2s cubic-bezier(.4,0,.2,1);
+    }
+    .welcome-title {
+      font-size: 2.5rem;
+      color: var(--nude-brown);
+      margin-bottom: 1.2rem;
+      letter-spacing: 1px;
+      animation: slideDown 1s cubic-bezier(.4,0,.2,1);
+    }
+    .welcome-desc {
+      font-size: 1.3rem;
+      color: var(--black);
+      margin-bottom: 2.2rem;
+      text-align: center;
+      animation: fadeIn 2s 0.5s both;
+    }
+    .welcome-btn {
+      background: var(--accent);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      padding: 0.9rem 2.2rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(169,116,110,0.10);
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      animation: popIn 1.2s 1s both;
+    }
+    .welcome-btn:hover {
+      background: var(--nude-brown);
+      color: var(--white);
+      transform: scale(1.06);
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.7); }
+      80% { opacity: 1; transform: scale(1.08); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div class="welcome-container">
+    <div class="welcome-title" id="animated-title"></div>
+    <div class="welcome-desc">Discover my journey, projects, and more.<br>Click below to enter the main site.</div>
+    <button class="welcome-btn" onclick="sessionStorage.setItem('visitedWelcome','true'); window.location.href='index.html'">Enter</button>
+  </div>
+<script>
+  // Animated title effect (BlurText-like)
+  const text = "Welcome to Oratile's Website";
+  const words = text.split(' ');
+  const container = document.getElementById('animated-title');
+  words.forEach((word, i) => {
+    const span = document.createElement('span');
+    span.textContent = word + ' '; // + (i < words.length - 1 ? ' ' : ' ');
+    span.style.whiteSpace = 'pre';
+    span.style.opacity = 0;
+    span.style.filter = 'blur(10px)';
+    span.style.transform = 'translateY(-50px)';
+    span.style.display = 'inline-block';
+    span.style.transition = 'opacity 0.35s cubic-bezier(.4,0,.2,1), filter 0.35s cubic-bezier(.4,0,.2,1), transform 0.35s cubic-bezier(.4,0,.2,1)';
+    container.appendChild(span);
+    setTimeout(() => {
+      span.style.opacity = 1;
+      span.style.filter = 'blur(0px)';
+      span.style.transform = 'translateY(0)';
+    }, 150 * i + 200);
+  });
+</script>
+</body>
+</html>

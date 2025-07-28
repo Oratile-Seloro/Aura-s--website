@@ -7,6 +7,12 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="icon" href="favicon.ico" />
   <script defer src="main.js"></script>
+  <script>
+    // Redirect to welcome.html only if not visited in this session
+    if (!sessionStorage.getItem('visitedWelcome')) {
+      window.location.replace('welcome.html');
+    }
+  </script>
 </head>
 <body>
   <header>
@@ -17,7 +23,7 @@
         <li><a href="about.html">About</a></li>
         <li><a href="projects.html">Projects</a></li>
         <li><a href="cv.html">CV & Degrees</a></li>
-        <li><a href="certificates.html">Certificates</a></li>
+        <!-- <li><a href="certificates.html">Certificates</a></li> -->
       </ul>
     </nav>
   </header>
@@ -27,14 +33,17 @@
       <li><a href="about.html">About</a></li>
       <li><a href="projects.html">Projects</a></li>
       <li><a href="cv.html">CV & Degrees</a></li>
-      <li><a href="certificates.html">Certificates</a></li>
+      <!-- <li><a href="certificates.html">Certificates</a></li> -->
     </ul>
   </aside>
   <main>
     <section class="profile">
-      <img src="images/profile.jpg" alt="Profile Picture" class="profile-pic" />
-      <h1>Your Name</h1>
-      <p class="description">Short description about who you are and the purpose of this website.</p>
+      <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+        <h2 class="animated-title" style="margin-bottom: 1.2rem; color: var(--white); font-size: 2rem; text-align: center; width: 100%; border: 1px solid var(--nude-brown); border-radius: 10px; padding: 0.5rem 1.5rem; background: var(--accent); box-shadow: 0 2px 8px rgba(169,116,110,0.07); margin-left: 80px; max-width: 420px;">Oratile's website</h2>
+        <img src="images/profilepic.jpg" alt="Profile Picture" class="profile-pic" />
+        <p style="margin-top: 1rem; color: var(--nude-brown); font-size: 1.1rem; font-weight: 500; text-align: center;">Based in Pretoria</p>
+      </div>
+      <p class="description">Oratile Seloro is a well-motivated individual aspiring to excel in <i>software engineering</i>.<br><br>She is a hard-working IT graduate who has problem-solving and analytical abilities.</p>
     </section>
   </main>
   <footer>
