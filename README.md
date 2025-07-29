@@ -3,7 +3,7 @@
 A stunning, modern personal portfolio website showcasing professional development, technical skills, and interactive web design. Built with vanilla HTML, CSS, and JavaScript, featuring advanced animations, responsive design, and seamless GitHub integration.
 
 ## 🚀 **Live Demo**
-Visit the live website: [https://oratile-seloro.github.io/Aura-s--website/]
+Visit the live website: [https://oratile-seloro.github.io]
 
 ## ✨ **What This Project Offers**
 
