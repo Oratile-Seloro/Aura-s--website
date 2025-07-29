@@ -88,11 +88,53 @@ cd ../frontend
 # Open index.html in your browser or use Live Server
 ```
 
-### **2. GitHub Pages Deployment**
-1. Fork this repository
-2. Update the content in the `frontend/` folder with your information
-3. Enable GitHub Pages in repository settings
-4. Your site will be live at `https://yourusername.github.io/Aura-s--website/`
+### **2. GitHub Pages Deployment with GitHub Actions**
+
+#### **✨ Automatic Deployment Setup (Recommended)**
+
+I've created a GitHub Actions workflow that automatically deploys your `frontend/` folder to GitHub Pages whenever you push changes to the main branch.
+
+**Step 1: Enable GitHub Pages with Actions**
+1. Go to your repository: `https://github.com/Oratile-Seloro/Aura-s--website`
+2. Click **"Settings"** → **"Pages"** (in left sidebar)
+3. Under **"Build and deployment"**:
+   - **Source**: Select **"GitHub Actions"**
+   - **Choose a workflow**: Select **"Static HTML"** or **"Custom"**
+
+**Step 2: Commit the Workflow File**
+A `.github/workflows/deploy.yml` file has been created in your repository. Commit and push it:
+
+```bash
+# Add the workflow file
+git add .github/workflows/deploy.yml
+git commit -m "Add GitHub Actions workflow for automatic deployment"
+git push origin main
+```
+
+**Step 3: Automatic Deployment**
+- 🚀 Your site will automatically deploy whenever you push to the `main` branch
+- 📍 Live URL: `https://oratile-seloro.github.io/Aura-s--website/`
+- ⏱️ Deployment typically takes 2-5 minutes
+- ✅ Check the "Actions" tab in your repo to monitor deployment status
+
+#### **📋 Manual Deployment (Alternative)**
+If you prefer to move files to the root directory instead:
+
+```bash
+# Navigate to repository root
+cd "path/to/Aura-s--website"
+
+# Move frontend files to root
+Move-Item frontend\* . -Force
+Remove-Item frontend -Recurse -Force
+
+# Commit changes
+git add .
+git commit -m "Move files to root for GitHub Pages"
+git push origin main
+
+# Then enable GitHub Pages with "Deploy from branch" → "main" → "/ (root)"
+```
 
 ## ⚙️ **Customization Guide**
 ### **📁 File Structure**
