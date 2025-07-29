@@ -239,27 +239,60 @@ function initWordHoverEffect() {
 
 // Load GitHub projects on projects.html
 if (window.location.pathname.endsWith('projects.html')) {
+  const githubUsername = 'Oratile-Seloro'; // Your GitHub username
+  
+  // Try backend API first (for local development), then fallback to GitHub API (for GitHub Pages)
   fetch('/api/github-projects')
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) throw new Error('Backend not available');
+      return res.json();
+    })
+    .catch(() => {
+      // Fallback to direct GitHub API for GitHub Pages
+      return fetch(`https://api.github.com/users/${githubUsername}/repos`)
+        .then(res => {
+          if (!res.ok) throw new Error('GitHub API failed');
+          return res.json();
+        });
+    })
     .then(projects => {
       const list = document.getElementById('projects-list');
       if (!Array.isArray(projects)) {
         list.innerHTML = '<p>Could not load projects.</p>';
         return;
       }
+      
+      // Filter out forked repos and sort by updated date
+      const filteredProjects = projects
+        .filter(proj => !proj.fork)
+        .sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at))
+        .slice(0, 12); // Show max 12 projects
+      
       list.innerHTML = '';
-      projects.forEach(proj => {
+      filteredProjects.forEach(proj => {
         const card = document.createElement('div');
         card.className = 'project-card';
+        
+        // Get primary language if available
+        const language = proj.language ? `<span style="color: var(--accent); font-size: 0.9rem; font-weight: 500;">${proj.language}</span>` : '';
+        
         card.innerHTML = `
           <h3>${proj.name}</h3>
-          <p>${proj.description || 'No description'}</p>
-          <a href="${proj.html_url}" target="_blank">View on GitHub</a>
+          <p>${proj.description || 'No description available'}</p>
+          ${language}
+          <div style="margin-top: 1rem;">
+            <a href="${proj.html_url}" target="_blank">View on GitHub</a>
+            ${proj.homepage ? `<a href="${proj.homepage}" target="_blank" style="margin-left: 1rem;">Live Demo</a>` : ''}
+          </div>
         `;
         list.appendChild(card);
       });
     })
-    .catch(() => {
-      document.getElementById('projects-list').innerHTML = '<p>Could not load projects.</p>';
+    .catch((error) => {
+      console.error('Failed to load projects:', error);
+      document.getElementById('projects-list').innerHTML = `
+        <p>Could not load projects. Please check your internet connection or try again later.</p>
+        <p style="margin-top: 1rem;"><a href="https://github.com/Oratile-Seloro" target="_blank">Visit my GitHub profile directly</a></p>
+      `;
     });
 }
